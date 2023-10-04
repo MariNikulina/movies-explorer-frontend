@@ -1,0 +1,24 @@
+.footer-link__item {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  color: #000000;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 424px) {
+  .footer-link__item {
+    font-size: 12px;
+  }
+}
+
+.footer-link__wedsite {
+  text-decoration: none;
+  color: #000000;
+}
+
+.footer-link__wedsite:hover {
+  opacity: 0.7;
+}

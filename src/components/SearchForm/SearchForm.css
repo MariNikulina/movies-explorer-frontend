@@ -1,0 +1,104 @@
+.seacher {
+  padding-top: 70px;
+  padding-bottom: 47px;
+}
+
+@media screen and (max-width: 900px) {
+  .seacher {
+    padding-top: 80px;
+    padding-bottom: 61px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .seacher {
+    padding: 84px 14px 51px;
+  }
+}
+
+.seacher__container {
+  padding-bottom: 32px;
+}
+
+@media screen and (max-width: 900px) {
+  .seacher__container {
+    padding-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .seacher__container {
+    padding-bottom: 41px;
+  }
+}
+
+.seacher__form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #E8E8E8;
+  width: 100%;
+}
+
+@media screen and (max-width: 424px) {
+  .seacher__form {
+    padding-bottom: 9px;
+  }
+}
+
+.seacher__input-container {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: calc(100% - 58.36px);
+}
+
+.seacher__input {
+  font-size: 28px;
+  line-height: normal;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  color: #A0A0A0;
+  width: 100%;
+}
+
+@media screen and (max-width: 424px) {
+  .seacher__input {
+    font-size: 18px;
+  }
+}
+
+.seacher__input::placeholder {
+  font-size: 28px;
+  line-height: normal;
+  font-weight: 500;
+  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  color: #A0A0A0;;
+}
+
+@media screen and (max-width: 424px) {
+  .seacher__input::placeholder {
+    font-size: 18px;
+  }
+}
+
+.seacher__button {
+  width: 58.65px;
+  height: 34px;
+  background-color: #3456F3;
+  color: #FFFFFF;
+  border-radius: 48px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.63;
+  border: 0;
+  padding: 0;
+}
+
+.seacher__button:hover {
+  opacity: 0.8;
+}
