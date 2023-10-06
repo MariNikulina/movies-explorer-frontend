@@ -85,6 +85,8 @@
 @media screen and (max-width: 900px) {
   .techs__list {
     padding-top: 83px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -92,7 +94,7 @@
   .techs__list {
     padding-top: 50px;
     max-width: 178px;
-    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 }
 

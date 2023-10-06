@@ -3,8 +3,8 @@ import "./FooterLinks.css";
 
 function FooterLinks ({ link, name }) {
   return (
-    <li className="footer-link__item">
-      <a href={link} target="_blank" rel="noreferrer" className="footer-link__wedsite">{name}</a>
+    <li className="footer__item">
+      <a href={link} target="_blank" rel="noreferrer" className="footer__link">{name}</a>
     </li>
   )
 };

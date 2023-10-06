@@ -1,16 +1,16 @@
-.register__form {
+.form-register {
   width: 100%;
   border: 0;
   margin-bottom: 16px;
 }
 
-.register__input-container {
+.form-register__input-container {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.register__button {
+.form-register__button {
   margin: 152px 0 0;
   border: 0;
   padding: 0;
@@ -23,14 +23,15 @@
   font-weight: 500;
   line-height: normal;
   color: #FFF;
+  cursor: pointer;
 }
 
-.register__button:hover {
+.form-register__button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 424px) {
-  .register__button {
+  .form-register__button {
     margin-top: 240px;
   }
 }

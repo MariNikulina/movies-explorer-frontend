@@ -25,17 +25,17 @@
   "subtitle photo"
   "description photo"
   "link photo";
-  column-gap: 270px;
+  column-gap: calc(100% - 870px);
 }
 
 @media screen and (max-width: 900px) {
   .about-me__info {
     grid-template-columns: fit-content(364px) 1fr;
-    column-gap: 49px;
+    column-gap: calc(100% - 629px);
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__info {
     grid-template-areas: none;
     grid-template-columns: auto;
@@ -58,12 +58,13 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__photo {
-    width: 292px;
     height: 352px;
-    padding-bottom: 40px;
     grid-area: auto;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 40px;
   }
 }
 
@@ -87,7 +88,7 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__title {
     padding-bottom: 20px;
     font-size: 30px;
@@ -114,7 +115,7 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__subtitle {
     font-size: 11px;
     line-height: 1.45;
@@ -124,11 +125,12 @@
 
 .about-me__description {
   margin: 0;
-  padding: 0 0 121px;
+  padding: 0;
   font-size: 14px;
   font-weight: 400;
   line-height: 1.57;
   grid-area: description;
+  min-height: 181px;
 }
 
 @media screen and (max-width: 900px) {
@@ -138,7 +140,7 @@
   }
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__description {
     padding-bottom: 40px;
     font-size: 11px;
@@ -156,13 +158,14 @@
   grid-area: link;
   text-decoration: none;
   color: #000;
+  align-self: flex-end;
 }
 
 .about-me__link:hover {
   opacity: 0.7;
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 550px) {
   .about-me__link {
     grid-area: auto;
   }

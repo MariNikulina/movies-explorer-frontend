@@ -1,21 +1,24 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useResize } from "../../utils/useResize";
 import ProfileLink from "../ProfileLink/ProfileLink";
 
 import "./Header.css";
 import "../App/App.css";
 import logoPath from "../../images/header-logo.svg";
 
-function Header({ loggedIn, isScreenMd, onGoAnotherPage, locationProject }) {
+function Header({ loggedIn, openMenu, headerColorProject, burgerColorProject, profileButtonColorProject }) {
+
+  const resize = useResize();
 
   return(
-    <header className={`header ${locationProject ? "header_color_dark" : ""} page__section`}>
+    <header className={`header ${headerColorProject || ""} content__section`}>
       <Link to="/" className="header__link-logo">
         <img src={logoPath} alt="Логотип" className="header__logo" />
       </Link>
       {loggedIn ? (
         <div>
-          {isScreenMd &&
+          {resize.isScreenMd &&
           <nav className="header__navbar-films">
             <NavLink
             to="/movies"
@@ -24,11 +27,11 @@ function Header({ loggedIn, isScreenMd, onGoAnotherPage, locationProject }) {
             to="/saved-movies"
             className={({isActive}) => `header__link-films ${isActive ? "header__link-films_active" : ""}`}>Сохраненные фильмы</NavLink>
           </nav>}
-          {isScreenMd &&
+          {resize.isScreenMd &&
           <nav className="header__navbar-auth">
-            <ProfileLink locationProject={locationProject} />
+            <ProfileLink profileButtonColorProject={profileButtonColorProject} />
           </nav>}
-          {!isScreenMd && <button className={`header__burger ${locationProject ? "header__burger_color_white" : ""}`} onclick={onGoAnotherPage} aria-label="Перейти"></button>}
+          {!resize.isScreenMd && <button className={`header__burger ${burgerColorProject}`} onClick={openMenu} aria-label="Перейти"></button>}
         </div>
       ) : (
         <nav className="header__navbar-auth">
@@ -38,9 +41,7 @@ function Header({ loggedIn, isScreenMd, onGoAnotherPage, locationProject }) {
           </Link>
       </nav>
     )}
-
       </header>
-
       );
 }
 

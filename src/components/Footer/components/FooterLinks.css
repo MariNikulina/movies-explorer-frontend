@@ -1,4 +1,4 @@
-.footer-link__item {
+.footer__item {
   font-size: 13px;
   font-weight: 400;
   line-height: normal;
@@ -9,16 +9,16 @@
 }
 
 @media screen and (max-width: 424px) {
-  .footer-link__item {
+  .footer__item {
     font-size: 12px;
   }
 }
 
-.footer-link__wedsite {
+.footer__link {
   text-decoration: none;
   color: #000000;
 }
 
-.footer-link__wedsite:hover {
+.footer__link:hover {
   opacity: 0.7;
 }

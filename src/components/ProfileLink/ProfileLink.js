@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./ProfileLink.css";
 
-function ProfileLink({ locationProject }) {
+function ProfileLink({ profileButtonColorProject }) {
 
   return (
-    <Link to="/profile" className={`profile-link ${locationProject ? "profile-link_color_green" : ""}`}>
+    <Link to="/profile" className={`profile-link ${profileButtonColorProject}`}>
       <p className="profile-link__text">Аккаунт</p>
       <div className="profile-link__icon"></div>
     </Link>

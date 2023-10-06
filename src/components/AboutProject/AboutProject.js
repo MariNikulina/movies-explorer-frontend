@@ -7,7 +7,7 @@ import "./AboutProject.css";
 function AboutProject() {
 
   return (
-    <section className="about-project container__section_padding_big" id={"project"}>
+    <section className="about-project container__padding-big" id={"project"}>
       <TitleSections title="О проекте" />
       <div className="about-project__description">
         { diplomaDescriptions.map((description) => (

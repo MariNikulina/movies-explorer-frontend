@@ -55,6 +55,10 @@
   background-position: center;
 }
 
+.nav__close:hover {
+  opacity: 0.8;
+}
+
 .nav__menu {
   display: flex;
   flex-direction: column;

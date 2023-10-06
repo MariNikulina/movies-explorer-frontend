@@ -47,7 +47,7 @@
   position: relative;
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 480px) {
   .profile__form {
     width: 260px;
   }
@@ -85,6 +85,11 @@
   line-height: normal;
 }
 
+.profile__input:focus {
+  border-bottom: 1px solid #3456F3;
+  outline: 0;
+}
+
 .profile__error {
   position: absolute;
   right: 0;
@@ -104,6 +109,7 @@
   font-size: 13px;
   font-weight: 400;
   line-height: normal;
+  cursor: pointer;
 }
 
 .profile__button-edit:hover {
@@ -136,6 +142,7 @@
   font-weight: 500;
   line-height: normal;
   color: #FFF;
+  cursor: pointer;
 }
 
 .profile__button-save:hover {
@@ -157,6 +164,7 @@
   background-color: transparent;
   width: 100%;
   margin: 16px 0 0;
+  cursor: pointer;
 }
 
 .profile__button-exit:hover {

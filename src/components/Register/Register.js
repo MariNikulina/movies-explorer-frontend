@@ -7,13 +7,13 @@ import "./Register.css";
 function Register () {
   return (
     <UnauthPage title="Добро пожаловать!" text="Уже зарегистрированы?" link="/signin" linkText="Войти">
-      <form action="#" className="register__form" name="register" noValidate>
-        <fieldset class="register__input-container">
+      <form action="#" className="form-register" name="register">
+        <fieldset class="form-register__input-container">
           {inputsRegister.map((input) => (
             <Input key={input.id} {...input} />
           ))}
         </fieldset>
-        <input type="submit" className="register__button" value="Зарегистрироваться" />
+        <input type="submit" className="form-register__button" value="Зарегистрироваться" />
       </form>
     </UnauthPage>
   )

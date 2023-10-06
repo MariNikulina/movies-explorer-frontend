@@ -54,6 +54,7 @@
   border: 0;
   margin: 0 auto;
   padding: 0;
+  cursor: pointer;
 }
 
 .movies__button:hover {

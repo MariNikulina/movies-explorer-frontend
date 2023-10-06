@@ -5,13 +5,13 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader.js";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-function Movies ({ isLoading, locationSavedMovies }) {
+function Movies ({ isLoading, onSubmit }) {
 
   return (
     <Container>
-      <SearchForm />
+      <SearchForm onSubmit={onSubmit} />
       {isLoading && <Preloader />}
-      <MoviesCardList locationSavedMovies={locationSavedMovies}/>
+      <MoviesCardList />
     </Container>
   )
 };

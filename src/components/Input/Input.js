@@ -3,17 +3,17 @@ import "./Input.css";
 
 function Input ({ label, type, placeholder, minLength, maxLength, nameInput }) {
   return (
-    <label class="input__label">{label}
+    <label class="input-label">{label}
       <input
       type={type}
-      className="input__field"
+      className="input-label__field"
       placeholder={placeholder}
       name={nameInput}
       minLength={minLength}
       maxLength={maxLength}
       required
       />
-      <span class="input__error" id={`${nameInput}-error`}></span>
+      <span class="input-label__error" id={`${nameInput}-error`}></span>
     </label>
   )
 };

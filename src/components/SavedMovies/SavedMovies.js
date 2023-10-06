@@ -2,12 +2,14 @@ import React from "react";
 import Container from "../Container/Container";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Preloader from "../Preloader/Preloader";
 
-function SavedMovies ({ locationSavedMovies, isScreenSm }) {
+function SavedMovies ({ isLoading, onSubmit }) {
   return (
     <Container>
-      <SearchForm />
-      <MoviesCardList locationSavedMovies={locationSavedMovies} isScreenSm={isScreenSm} />
+      <SearchForm onSubmit={onSubmit} />
+      {isLoading && <Preloader />}
+      <MoviesCardList />
     </Container>
   )
 };

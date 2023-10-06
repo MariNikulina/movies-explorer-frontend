@@ -8,7 +8,7 @@ function Footer () {
   const year = 2023;
 
   return (
-    <footer className="footer page__section">
+    <footer className="footer content__section">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__info">
         <p className="footer__date">&copy; {year}</p>

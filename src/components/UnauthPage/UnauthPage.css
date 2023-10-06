@@ -23,7 +23,7 @@
   margin: 0 auto;
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 450px) {
   .unauth-page__container {
     width: 260px;
     align-items: center;
@@ -74,7 +74,7 @@
   line-height: normal;
 }
 
-@media screen and (max-width: 424px) {
+@media screen and (max-width: 450px) {
   .unauth-page__redirection {
     gap: 7px;
     font-size: 12px;

@@ -1,4 +1,4 @@
-.input__label {
+.input-label {
   width: 100%;
   display: block;
   position: relative;
@@ -9,11 +9,11 @@
   line-height: normal;
 }
 
-.input__label:last-child {
+.input-label:last-child {
   margin-bottom: 0;
 }
 
-.input__field {
+.input-label__field {
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
@@ -25,12 +25,12 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.input__field:focus {
+.input-label__field:focus {
   border-bottom: 1px solid #3456F3;
   outline: 0;
 }
 
-.input__error {
+.input-label__error {
   position: absolute;
   top: 51px;
   left: 0;

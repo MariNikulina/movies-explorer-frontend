@@ -5,7 +5,7 @@ import "./AboutMe.css";
 
 function AboutMe () {
    return (
-    <section className="about-me container__section_padding_big">
+    <section className="about-me container__padding-middle">
       <TitleSections title="Студент" />
       <article className="about-me__info">
         <img className="about-me__photo" alt="Фотография студента" src={photoPath} />

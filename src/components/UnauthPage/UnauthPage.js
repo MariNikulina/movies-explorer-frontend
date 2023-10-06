@@ -5,7 +5,7 @@ import "./UnauthPage.css";
 
 function UnauthPage ({ title, children, text, link, linkText}) {
   return (
-    <section className="unauth-page">
+    <main className="unauth-page">
       <div className="unauth-page__container">
         <Link to="/" className="unauth-page__logo-link">
           <img className="unauth-page__logo" alt="Логотип" src={logoPath} />
@@ -17,7 +17,7 @@ function UnauthPage ({ title, children, text, link, linkText}) {
           <Link to={link} className="unauth-page__link">{linkText}</Link>
         </div>
       </div>
-    </section>
+    </main>
   )
 };
 

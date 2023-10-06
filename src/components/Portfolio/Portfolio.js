@@ -6,7 +6,7 @@ import "./Portfolio.css";
 function Portfolio () {
 
   return (
-    <section className="portfolio container__section_padding_big">
+    <section className="portfolio container__padding-big">
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
         {projectType.map((type) => (

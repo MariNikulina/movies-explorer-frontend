@@ -115,3 +115,6 @@ export const inputsLogin = [
     nameInput: "password"
   }
 ];
+
+export const SCREEN_SM = 424;
+export const SCREEN_MD = 768;
