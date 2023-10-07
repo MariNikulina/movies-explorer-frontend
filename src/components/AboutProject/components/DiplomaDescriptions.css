@@ -1,0 +1,49 @@
+.description {
+  max-width: 550px;
+  width: 100%;
+}
+
+.description__title {
+  font-size: 20px;
+  line-height: normal;
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  margin: 0;
+  padding: 0 0 26px;
+}
+
+@media screen and (max-width: 900px) {
+  .description__title {
+    padding-bottom: 22px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .description__title {
+    padding-bottom: 16px;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+}
+
+.description__text {
+  font-size: 14px;
+  line-height: 1.43;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .description__text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .description__text {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+}

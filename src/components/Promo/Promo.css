@@ -1,0 +1,139 @@
+.promo {
+  padding: 75px 0;
+  display: grid;
+  grid-template-columns: fit-content(640px) 1fr;
+  grid-template-areas:
+  "title logo"
+  "subtitle logo"
+  "link logo";
+  gap: 36px calc(100% - 950px);
+  background-color: #073042;
+  color: #FFFFFF;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 900px) {
+  .promo {
+    grid-template-areas: none;
+    grid-template-columns: auto;
+    gap: 0;
+    padding-top: 140px;
+    padding-bottom: 76px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .promo {
+    padding-top: 70px;
+    padding-bottom: 30px;
+  }
+}
+
+.promo__title {
+  margin: 0;
+  padding: 0;
+  font-size: 50px;
+  line-height: 1.16;
+  font-weight: 400;
+  grid-area: title;
+}
+
+@media screen and (max-width: 900px) {
+  .promo__title {
+    text-align: center;
+    margin-bottom: 22px;
+    grid-area: auto;
+    font-size: 40px;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .promo__title {
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 1.26;
+    letter-spacing: -1.2px;
+  }
+}
+
+.promo__subtitle {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: normal;
+  font-weight: 400;
+  opacity: .5;
+  grid-area: subtitle;
+  margin-bottom: 110px;
+  width: 310px;
+}
+
+@media screen and (max-width: 900px) {
+  .promo__subtitle {
+    text-align: center;
+    margin-bottom: 92px;
+    grid-area: auto;
+    justify-self: center;
+    max-width: 260px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .promo__subtitle {
+    margin-bottom: 80px;
+  }
+}
+
+.promo__logo {
+  background-image: url(../../images/promo-logo.svg);
+  grid-area: logo;
+  background-repeat: no-repeat;
+  width: 310px;
+  height: 304px;
+  justify-self: end;
+}
+
+@media screen and (max-width: 900px) {
+  .promo__logo {
+    margin-bottom: 48px;
+    grid-area: auto;
+    justify-self: center;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .promo__logo {
+    margin-bottom: 44px;
+    width: 210px;
+    height: 206px;
+    background-size: cover;
+  }
+}
+
+.promo__link {
+  width: 129px;
+  height: 36px;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 3px;
+  grid-area: link;
+  text-decoration: none;
+  color: white;
+  line-height: 36px;
+  text-align: center;
+}
+
+.promo__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 900px) {
+  .promo__link {
+    grid-area: auto;
+    justify-self: center;
+  }
+}

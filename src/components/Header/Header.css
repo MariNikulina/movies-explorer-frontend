@@ -1,0 +1,131 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 74px;
+  position: relative;
+  color: #000;
+}
+
+.header_color_dark {
+  background-color: #073042;
+  color: white;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+}
+
+.header__logo:hover {
+  opacity: 0.8;
+}
+
+.header__navbar-films {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.header__link-films {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 400;
+  color: inherit;
+}
+
+.header__link-films_active {
+  font-weight: 500;
+}
+
+.header__link-films:hover {
+  opacity: 0.7;
+}
+
+.header__link-auth {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 500;
+}
+
+.header__link-auth:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 424px) {
+  .header__link-auth {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}
+
+.header__link-signin {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 32px;
+  font-weight: 500;
+  width: 76px;
+  height: 32px;
+  background-color: #2BE080;
+  border-radius: 3px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: black;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 424px) {
+  .header__link-signin {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 1.6;
+    line-height: 26px;
+  }
+}
+
+.header__navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.header__burger {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: opacity .4s;
+  background-color: transparent;
+  background-image: url(../../images/header-burger-black.svg);
+  fill: blue;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.header__burger:hover {
+  opacity: 0.8;
+}
+
+.header__burger_color_white {
+  background-image: url(../../images/header-burger-white.svg);
+}
+
+@media screen and (max-width: 424px) {
+  .header__burger {
+    width: 40px;
+    height: 43px;
+  }
+}
+

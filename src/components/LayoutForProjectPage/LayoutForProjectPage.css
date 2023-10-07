@@ -1,0 +1,27 @@
+.content__section {
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-left: 70px;
+  padding-right: 70px;
+  max-width: 1280px;
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .content__section {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .content__section {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+.content__section-main {
+  margin: 0 auto;
+  box-sizing: border-box;
+}

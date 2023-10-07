@@ -1,0 +1,122 @@
+.about-project {
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-project {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .about-project {
+    padding-top: 70px;
+    padding-bottom: 69px;
+  }
+}
+
+.about-project__description {
+  padding-top: 70px;
+  display: flex;
+  column-gap: 40px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-project__description {
+    column-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__description {
+    flex-direction: column;
+    padding-top: 60px;
+    row-gap: 56px;
+  }
+}
+
+.about-project__duration-table {
+  padding-top: 110px;
+  display: flex;
+}
+
+@media screen and (max-width: 900px) {
+  .about-project__duration-table {
+    padding-top: 93px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__duration-table {
+    padding-top: 60px;
+  }
+}
+
+.about-project__duration {
+  text-align: center;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__duration {
+    font-size: 11px;
+  }
+}
+
+.about-project__duration_width_small {
+  width: 20%;
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__duration_width_small {
+    width: 35%;
+  }
+}
+
+.about-project__duration_width_big {
+  width: 80%;
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__duration_width_big {
+    width: 65%;
+  }
+}
+
+.about-project__week {
+  min-height: 36px;
+  margin: 0;
+  padding: 0;
+  line-height: 36px;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__week {
+    min-height: 35px;
+  }
+}
+
+.about-project__week_color_green {
+  background-color: #2BE080;
+}
+
+.about-project__week_color_grey {
+  background-color: #F2F2F2;
+}
+
+.about-project__course {
+  margin: 0;
+  padding: 0;
+  color: #A0A0A0;
+  font-weight: 500;
+  margin-top: 14px;
+}
+
+@media screen and (max-width: 900px) {
+  .about-project__course {
+    font-weight: 400;
+  }
+}
