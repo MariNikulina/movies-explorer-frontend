@@ -11,7 +11,6 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import Navigation from "../Navigation/Navigation";
 import LayoutForProjectPage from "../LayoutForProjectPage/LayoutForProjectPage";
 import LayoutForMoviesPage from "../LayoutForMoviesPage/LayoutForMoviesPage";
-import { movies } from "../../utils/constants";
 
 function App() {
 

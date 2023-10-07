@@ -35,6 +35,12 @@
   }
 }
 
+@media screen and (max-width: 710px) {
+  .about-me__info {
+    column-gap: 20px;
+  }
+}
+
 @media screen and (max-width: 550px) {
   .about-me__info {
     grid-template-areas: none;

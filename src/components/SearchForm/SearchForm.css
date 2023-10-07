@@ -97,6 +97,7 @@
   line-height: 1.63;
   border: 0;
   padding: 0;
+  cursor: pointer;
 }
 
 .seacher__button:hover {

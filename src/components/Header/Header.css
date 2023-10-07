@@ -114,6 +114,10 @@
   background-position: center center;
 }
 
+.header__burger:hover {
+  opacity: 0.8;
+}
+
 .header__burger_color_white {
   background-image: url(../../images/header-burger-white.svg);
 }
