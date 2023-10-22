@@ -103,3 +103,19 @@
 .seacher__button:hover {
   opacity: 0.8;
 }
+
+.seacher__label {
+  position: relative;
+}
+
+.seacher__error {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  color: #FF004C;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+

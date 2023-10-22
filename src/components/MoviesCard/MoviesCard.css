@@ -1,3 +1,7 @@
+.movie {
+  max-width: 100%;
+}
+
 .movie__link {
   display: block;
   font-size: 0;
@@ -25,6 +29,10 @@
   line-height: normal;
   margin: 0;
   padding: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 85%;
 }
 
 @media screen and (max-width: 424px) {
