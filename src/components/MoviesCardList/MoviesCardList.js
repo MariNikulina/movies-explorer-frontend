@@ -15,7 +15,7 @@ function MoviesCardList ({ movies, onClick, savedMovies, onShowMore, isHiddenBut
         {movies.map((movieElement) => (
           <MoviesCard
           movie={movieElement}
-          key={movieElement.id}
+          key={movieElement.movieId}
           {...movieElement}
           locationSavedMovies={locationSavedMovies}
           onClick={onClick}

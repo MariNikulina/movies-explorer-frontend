@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -109,6 +109,7 @@ function App() {
     localStorage.removeItem("movies");
     setUserData({});
     setLoggedIn(false);
+    setError("");
   };
 
 function handleUpdateProfile (nameProfile, emailProfile) {
@@ -140,11 +141,12 @@ const checkbox = JSON.parse(localStorage.getItem("checkbox")) === null ? true : 
   const [ savedMovies, setSavedMovies ] = React.useState([]); // массив сохраненных фильмов на мой апи
   const [ rowCounter, setRowCounter ] = React.useState(0); //счетчик рядов
 
+  console.log(error)
   const countMoviesShow = initialCards + rowCounter*addCards;
   const moviesShow = movie.slice(0, countMoviesShow);
 
 
-  const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies")) || {};
+  const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies")) || [];
   console.log(moviesFromLocalStorage)
 
   const { isScreenSm, isScreenLg, isScreenXl } = useResize();
@@ -167,6 +169,7 @@ const checkbox = JSON.parse(localStorage.getItem("checkbox")) === null ? true : 
 
 
   const filterNameMovies = ({ movies, keyWord }) => {
+    console.log(movies)
     const filteredNameMovies = movies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(keyWord.toLowerCase()) ||
       movie.nameEN.toLowerCase().includes(keyWord.toLowerCase());
@@ -232,6 +235,8 @@ React.useEffect(() => {
 //извлечение данных чекбокса и найденного списка фильмов из localStorage при монтировании компонента
  React.useEffect(() => {
   console.log("5")
+  console.log(error)
+  setError("");
   setChecked(checkbox);
   setFilteredNameMovies(moviesFromLocalStorage);
 }, []);
@@ -295,32 +300,86 @@ React.useEffect(() => {
     setRowCounter(prev => prev + 1);
   }
 
+const [ savedMoviesOnPage, setSavedMoviesOnPage ] = React.useState([]);
+const [ filteredNameSavedMovies, setFilteredNameSavedMovies] = React.useState([]);
+const [ checkedOnSavedPage, setCheckedOnSavedPage ] = React.useState(true);
+const [ errorOnSavedPage, setErrorOnSavedPage ] = React.useState("");
 
+const location = useLocation();
+const locationSavedMovies = location.pathname === "/saved-movies";
 
+React.useEffect(() => {
+  console.log("1")
+  if (loggedIn) {
+
+    mainApi.getSavedMovies()
+      .then((res) => {
+        console.log(res)
+        setErrorOnSavedPage("");
+        setSavedMovies(res);
+        setSavedMoviesOnPage(res);
+        setFilteredNameSavedMovies(res);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+}, [loggedIn, locationSavedMovies]);
+
+//Вывод сообщения "Ничего не найдено" при пустом поле ввода
+React.useEffect(() => {
+  if (savedMoviesOnPage.length === 0 && savedMovies.length !== 0 && !isLoading) {
+    setMovieNotFound("Ничего не найдено");
+  }
+}, [savedMoviesOnPage, savedMovies]);
+
+console.log(savedMoviesOnPage)
 
   //Функция сабмита
   function handleFindSavedMovies (formData) {
 
-    setMovie([]);
-    setError("");
+    setFilteredNameSavedMovies([]);
+    setErrorOnSavedPage("");
 
-    try {
-      if (!formData) {
-        setError("Нужно ввести ключевое слово");
-      } else {
+    if (!formData) {
+      setErrorOnSavedPage("Нужно ввести ключевое слово");
+    } else {
       setIsLoading(true);
-
-      setAllMovies(movies);
-      console.log(movies)
-      setFilteredNameMovies(filterNameMovies({ movies, keyWord: formData }));
-      }
-    } catch(err) {
-      setError(err);
-    } finally {
+      console.log(savedMoviesOnPage)
+      setFilteredNameSavedMovies(filterNameMovies({ movies: savedMovies, keyWord: formData }));
       setIsLoading(false);
-    }
   };
+};
 
+React.useEffect(() => {
+  setMovieNotFound("");
+  console.log("1")
+  console.log(checked)
+  console.log(filteredNameSavedMovies)
+
+  if (checkedOnSavedPage) {
+    setSavedMoviesOnPage(filterDurationMovies({ movies: filteredNameSavedMovies }))
+  } else {
+      setSavedMoviesOnPage(filteredNameSavedMovies);
+    }
+
+}, [filteredNameSavedMovies, checkedOnSavedPage ]);
+
+function handleDeleteMovieOnSavedPage (paramsFunctionOnClick) {
+  mainApi.deleteMovie(paramsFunctionOnClick._id)
+    .then((deletedMovie) => {
+      setSavedMovies((state) => state.filter(i => i.movieId !== deletedMovie.movieId));
+      setSavedMoviesOnPage((state) => state.filter(i => i.movieId !== deletedMovie.movieId));
+    })
+    .catch((err) => {
+      console.log(`${err}`);
+    });
+}
+
+//Функция переключения чекбокса на странице сохраненных фильмов
+function onChangeCheckboxOnSavedPage () {
+  setCheckedOnSavedPage(!checkedOnSavedPage);
+};
 
    return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -364,12 +423,12 @@ React.useEffect(() => {
               element={SavedMovies}
               loggedIn={loggedIn}
               openMenu={openMenu}
-              savedMovies={savedMovies}
+              savedMovies={savedMoviesOnPage}
               onSubmitHandler={(formData) => handleFindSavedMovies(formData)}
-              onChangeCheckbox={onChangeCheckbox}
-              onClick={(paramsFunctionOnClick) => handleMovieSave(paramsFunctionOnClick)}
-              checked={checked}
-              error={error}
+              onChangeCheckbox={onChangeCheckboxOnSavedPage}
+              onClick={(paramsFunctionOnClick) => handleDeleteMovieOnSavedPage(paramsFunctionOnClick)}
+              checked={checkedOnSavedPage}
+              error={errorOnSavedPage}
               isLoading={isLoading}
               movieNotFound={movieNotFound}
             />}

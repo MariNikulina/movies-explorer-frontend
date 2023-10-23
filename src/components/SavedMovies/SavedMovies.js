@@ -6,6 +6,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 
 function SavedMovies ({ loggedIn, openMenu, savedMovies, onSubmitHandler, onChangeCheckbox, checked, error, isLoading, movieNotFound, onClick }) {
+
   return (
     <LayoutForMoviesPage loggedIn={loggedIn} openMenu={openMenu} >
       <Container>
