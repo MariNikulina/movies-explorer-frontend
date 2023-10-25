@@ -67,5 +67,6 @@ class MainApi {
   }
 }
 
-export const mainApi = new MainApi('http://localhost:3003');
+/*export const mainApi = new MainApi('http://localhost:3003');*/
+export const mainApi = new MainApi('https://api.movies.nikulina.nomoredomainsrocks.ru');
 

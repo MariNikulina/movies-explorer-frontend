@@ -16,7 +16,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
 
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
-console.log(userData)
+
   let { name } = currentUser;
   let nameTitle = name.slice(0, 1).toUpperCase() + name.slice(1);
 
@@ -45,8 +45,7 @@ console.log(userData)
     })
 
     resetForm();
-  }
-  console.log(errors["nameProfile"])
+  };
 
   return (
     <div className="content">

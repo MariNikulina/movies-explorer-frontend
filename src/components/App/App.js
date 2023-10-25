@@ -29,16 +29,37 @@ import {
 
 function App() {
 
+  const checkbox = JSON.parse(localStorage.getItem("checkbox")) === null ? true : JSON.parse(localStorage.getItem("checkbox"));
+
   const [ isOpened, setIsOpened ] = React.useState(false);
   const [ userData, setUserData ] = React.useState({});
   const [ loggedIn, setLoggedIn ] = React.useState(false);
   const [ currentUser, setCurrentUser ] = React.useState({});
+  const [ allMovies, setAllMovies ] = React.useState([]);
+  const [ movie, setMovie ] = React.useState([]);
+  const [ filteredNameMovies, setFilteredNameMovies] = React.useState([]);
+  const [ isLoading, setIsLoading ] = React.useState(false);
+  const [ checked, setChecked ] = React.useState(checkbox);
+  const [ movieNotFound, setMovieNotFound ] = React.useState("");
+  const [ error, setError ] = React.useState("");
+  const [ isHiddenButtonShowMore, setIsHiddenButtonShowMore ] = React.useState(false);
+  const [ initialCards, setInitialCards ] = React.useState(null); // количество фильмов при загрузке
+  const [ addCards, setAddCards ] = React.useState(null); // количество фильмов, которые добавляет кнопка "Еще"
+  const [ savedMovies, setSavedMovies ] = React.useState([]); // массив сохраненных фильмов на мой апи
+  const [ rowCounter, setRowCounter ] = React.useState(0); //счетчик рядов
+
+  const countMoviesShow = initialCards + rowCounter*addCards;
+  const moviesShow = movie.slice(0, countMoviesShow);
+
+
+  const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies")) || [];
+
+  const { isScreenSm, isScreenLg, isScreenXl } = useResize();
 
   const navigate = useNavigate();
 
   const tokenCheck = () => {
     auth.getContent().then((res) => {
-      console.log(res)
       if (res?.id) {
         const userData = {
           name: res.name,
@@ -52,19 +73,17 @@ function App() {
     .catch((err) => {
       console.log(err.message)
     })
-  }
-  console.log(userData)
+  };
 
   React.useEffect(() => {
     tokenCheck();
-  }, [])
+  }, []);
 
   React.useEffect(() => {
     if (loggedIn) {
 
       mainApi.getUserInfo()
         .then((res) => {
-          console.log(res)
           setCurrentUser(res);
         })
         .catch((err) => {
@@ -115,83 +134,51 @@ function App() {
 function handleUpdateProfile (nameProfile, emailProfile) {
   return mainApi.updateUserInfo({ email: emailProfile, name: nameProfile })
     .then((user) => {
-      console.log(user)
       setCurrentUser(user);
     })
     .catch((err) => {
       console.log(`${err}`);
     });
-}
+};
+
+React.useEffect(() => {
+  if (isScreenXl) {
+    setInitialCards(SCREEN_XL_INITIAL_COUNT_CARDS);
+    setAddCards(SCREEN_XL_ADD_COUNT_CARDS);
+  } else if (isScreenLg) {
+    setInitialCards(SCREEN_LG_INITIAL_COUNT_CARDS);
+    setAddCards(SCREEN_LG_ADD_COUNT_CARDS);
+  } else if (isScreenSm) {
+    setInitialCards(SCREEN_SM_INITIAL_COUNT_CARDS);
+    setAddCards(SCREEN_SM_ADD_COUNT_CARDS);
+  } else if (!isScreenSm) {
+    setInitialCards(SCREEN_XSM_INITIAL_COUNT_CARDS);
+    setAddCards(SCREEN_XSM_ADD_COUNT_CARDS);
+  }
+}, [isScreenLg, isScreenSm, isScreenXl]);
 
 
+const filterNameMovies = ({ movies, keyWord }) => {
+  const filteredNameMovies = movies.filter((movie) => {
+    return movie.nameRU.toLowerCase().includes(keyWord.toLowerCase()) ||
+    movie.nameEN.toLowerCase().includes(keyWord.toLowerCase());
+  });
+  return filteredNameMovies;
+};
 
-const checkbox = JSON.parse(localStorage.getItem("checkbox")) === null ? true : JSON.parse(localStorage.getItem("checkbox"));
-  console.log(checkbox)
+const filterDurationMovies = ({movies}) => {
+  const filteredDurationMovies = movies.filter((movie) => {
+    return movie.duration <= 40;
+  });
+  return filteredDurationMovies;
+};
 
-  const [ allMovies, setAllMovies ] = React.useState([]);
-  const [ movie, setMovie ] = React.useState([]);
-  const [ filteredNameMovies, setFilteredNameMovies] = React.useState([]);
-  const [ isLoading, setIsLoading ] = React.useState(false);
-  const [ checked, setChecked ] = React.useState(checkbox);
-  const [ movieNotFound, setMovieNotFound ] = React.useState("");
-  const [ error, setError ] = React.useState("");
-  const [ isHiddenButtonShowMore, setIsHiddenButtonShowMore ] = React.useState(false);
-  const [ initialCards, setInitialCards ] = React.useState(null); // количество фильмов при загрузке
-  const [ addCards, setAddCards ] = React.useState(null); // количество фильмов, которые добавляет кнопка "Еще"
-  const [ savedMovies, setSavedMovies ] = React.useState([]); // массив сохраненных фильмов на мой апи
-  const [ rowCounter, setRowCounter ] = React.useState(0); //счетчик рядов
-
-  console.log(error)
-  const countMoviesShow = initialCards + rowCounter*addCards;
-  const moviesShow = movie.slice(0, countMoviesShow);
-
-
-  const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies")) || [];
-  console.log(moviesFromLocalStorage)
-
-  const { isScreenSm, isScreenLg, isScreenXl } = useResize();
-
-  React.useEffect(() => {
-    if (isScreenXl) {
-      setInitialCards(SCREEN_XL_INITIAL_COUNT_CARDS);
-      setAddCards(SCREEN_XL_ADD_COUNT_CARDS);
-    } else if (isScreenLg) {
-      setInitialCards(SCREEN_LG_INITIAL_COUNT_CARDS);
-      setAddCards(SCREEN_LG_ADD_COUNT_CARDS);
-    } else if (isScreenSm) {
-      setInitialCards(SCREEN_SM_INITIAL_COUNT_CARDS);
-      setAddCards(SCREEN_SM_ADD_COUNT_CARDS);
-    } else if (!isScreenSm) {
-      setInitialCards(SCREEN_XSM_INITIAL_COUNT_CARDS);
-      setAddCards(SCREEN_XSM_ADD_COUNT_CARDS);
-    }
-  }, [isScreenLg, isScreenSm, isScreenXl]);
-
-
-  const filterNameMovies = ({ movies, keyWord }) => {
-    console.log(movies)
-    const filteredNameMovies = movies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(keyWord.toLowerCase()) ||
-      movie.nameEN.toLowerCase().includes(keyWord.toLowerCase());
-    });
-    return filteredNameMovies;
-  };
-
-  const filterDurationMovies = ({movies}) => {
-    const filteredDurationMovies = movies.filter((movie) => {
-      return movie.duration <= 40;
-    });
-    return filteredDurationMovies;
-  };
-
-
-
-  //Вывод сообщения "Ничего не найдено" при пустом поле ввода
-  React.useEffect(() => {
-    if (movie.length === 0 && allMovies.length !== 0 && !isLoading) {
-      setMovieNotFound("Ничего не найдено");
-    }
-  }, [movie, allMovies]);
+//Вывод сообщения "Ничего не найдено" при пустом поле ввода
+React.useEffect(() => {
+  if (movie.length === 0 && allMovies.length !== 0 && !isLoading) {
+    setMovieNotFound("Ничего не найдено");
+  }
+}, [movie, allMovies]);
 
 
 //Сохранение в локальное хранилище списка найденных фильмов
@@ -202,99 +189,90 @@ React.useEffect(() => {
   }
 }, [allMovies, filteredNameMovies]);
 
+React.useEffect(() => {
+  setMovieNotFound("");
+  setRowCounter(0);
 
-
-
-  React.useEffect(() => {
-    setMovieNotFound("")
-    setRowCounter(0)
-    console.log("1")
-    console.log(checked)
-    console.log(filteredNameMovies)
-
-    if (checked) {
-      setMovie(filterDurationMovies({ movies: filteredNameMovies }))
-    } else /*(!checked && allMovies.length !== 0)*/ {
-        setMovie(filteredNameMovies);
-      }
-
-  }, [filteredNameMovies, initialCards, checked])
-
-
-
-
-  React.useEffect(() => {
-
-    setIsHiddenButtonShowMore(false)
-    if (moviesShow.length === movie.length) {
-      setIsHiddenButtonShowMore(true);
+  if (checked) {
+    setMovie(filterDurationMovies({ movies: filteredNameMovies }))
+  } else /*(!checked && allMovies.length !== 0)*/ {
+      setMovie(filteredNameMovies);
     }
 
-  }, [movie, moviesShow]);
+}, [filteredNameMovies, initialCards, checked])
+
+
+React.useEffect(() => {
+
+  setIsHiddenButtonShowMore(false)
+  if (moviesShow.length === movie.length) {
+    setIsHiddenButtonShowMore(true);
+  }
+
+}, [movie, moviesShow]);
 
 //извлечение данных чекбокса и найденного списка фильмов из localStorage при монтировании компонента
  React.useEffect(() => {
-  console.log("5")
-  console.log(error)
   setError("");
   setChecked(checkbox);
   setFilteredNameMovies(moviesFromLocalStorage);
 }, []);
 
 //Функция сабмита
-  async function handleFindMovies (formData) {
+async function handleFindMovies (formData) {
 
-    setMovie([]);
-    setError("");
-    setRowCounter(0)
+  setMovie([]);
+  setError("");
+  setRowCounter(0)
 
-    try {
-      if (!formData) {
-        setError("Нужно ввести ключевое слово");
-      } else {
-      setIsLoading(true);
-
-      const movies = await getMoviesFromBeatfilm()
-      setAllMovies(movies);
-      console.log(movies)
-      setFilteredNameMovies(filterNameMovies({ movies, keyWord: formData }));
-      }
-    } catch(err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  //Функция переключения чекбокса
-  function onChangeCheckbox () {
-    setChecked(!checked);
-    localStorage.setItem("checkbox", !checked);
-  };
-
-  //Функция сохранения/удаления фильма
-  function handleMovieSave (paramsFunctionOnClick) {
-
-    const foundMovie = savedMovies.find(movie => movie.movieId === paramsFunctionOnClick.movieId)
-
-    if (foundMovie) {
-      mainApi.deleteMovie(foundMovie._id)
-        .then((deletedMovie) => {
-          setSavedMovies((state) => state.filter(i => i.movieId !== deletedMovie.movieId))
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        });
+  try {
+    if (!formData) {
+      setError("Нужно ввести ключевое слово");
     } else {
-      mainApi.createNewMovie(paramsFunctionOnClick)
-        .then((movie) => {
-          setSavedMovies([movie, ...savedMovies]);
-        })
-        .catch((err) => {
-          console.log(`${err}`);
-        });
+    setIsLoading(true);
+
+    const movies = await getMoviesFromBeatfilm()
+    setAllMovies(movies);
+    console.log(movies)
+    setFilteredNameMovies(filterNameMovies({ movies, keyWord: formData }));
     }
+  } catch(err) {
+    setError(err);
+  } finally {
+    setIsLoading(false);
   }
+};
+
+//Функция переключения чекбокса
+function onChangeCheckbox () {
+  setChecked(!checked);
+  localStorage.setItem("checkbox", !checked);
+};
+
+//Функция сохранения/удаления фильма
+function handleMovieSave (paramsFunctionOnClick) {
+
+  const foundMovie = savedMovies.find(movie => movie.movieId === paramsFunctionOnClick.movieId)
+
+  if (foundMovie) {
+    mainApi.deleteMovie(foundMovie._id)
+      .then((deletedMovie) => {
+        setSavedMovies((state) => state.filter(i => i.movieId !== deletedMovie.movieId))
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  } else {
+    mainApi.createNewMovie(paramsFunctionOnClick)
+      .then((movie) => {
+        setSavedMovies([movie, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+}
+
  //Функция добавления ряда при нажатии кнопки "Еще"
   function handleShowMore () {
     setRowCounter(prev => prev + 1);
@@ -309,12 +287,10 @@ const location = useLocation();
 const locationSavedMovies = location.pathname === "/saved-movies";
 
 React.useEffect(() => {
-  console.log("1")
   if (loggedIn) {
 
     mainApi.getSavedMovies()
       .then((res) => {
-        console.log(res)
         setErrorOnSavedPage("");
         setSavedMovies(res);
         setSavedMoviesOnPage(res);
@@ -333,29 +309,24 @@ React.useEffect(() => {
   }
 }, [savedMoviesOnPage, savedMovies]);
 
-console.log(savedMoviesOnPage)
+//Функция сабмита на странице сохраненных фильмов
+function handleFindSavedMovies (formData) {
 
-  //Функция сабмита
-  function handleFindSavedMovies (formData) {
+  setFilteredNameSavedMovies([]);
+  setErrorOnSavedPage("");
 
-    setFilteredNameSavedMovies([]);
-    setErrorOnSavedPage("");
-
-    if (!formData) {
-      setErrorOnSavedPage("Нужно ввести ключевое слово");
-    } else {
-      setIsLoading(true);
-      console.log(savedMoviesOnPage)
-      setFilteredNameSavedMovies(filterNameMovies({ movies: savedMovies, keyWord: formData }));
-      setIsLoading(false);
+  if (!formData) {
+    setErrorOnSavedPage("Нужно ввести ключевое слово");
+  } else {
+    setIsLoading(true);
+    setFilteredNameSavedMovies(filterNameMovies({ movies: savedMovies, keyWord: formData }));
+    setIsLoading(false);
   };
 };
 
+//фильтрация чекбоксом на странице сохраненных фильмов
 React.useEffect(() => {
   setMovieNotFound("");
-  console.log("1")
-  console.log(checked)
-  console.log(filteredNameSavedMovies)
 
   if (checkedOnSavedPage) {
     setSavedMoviesOnPage(filterDurationMovies({ movies: filteredNameSavedMovies }))
@@ -365,6 +336,7 @@ React.useEffect(() => {
 
 }, [filteredNameSavedMovies, checkedOnSavedPage ]);
 
+//Удаление фильма со страницы сохраненных фильмов
 function handleDeleteMovieOnSavedPage (paramsFunctionOnClick) {
   mainApi.deleteMovie(paramsFunctionOnClick._id)
     .then((deletedMovie) => {

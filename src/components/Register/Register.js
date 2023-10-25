@@ -10,18 +10,13 @@ function Register ({ onRegister, onLogin }) {
   const [ errorServer, setErrorServer ] = React.useState("");
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
-  console.log("hello")
-  console.log(values)
 
   function handleSubmit(e) {
     e.preventDefault();
     setErrorServer("");
     const { name, email, password } = values;
-    console.log("123")
-    console.log(name)
     onRegister( name, email, password )
     .catch((err) => {
-      console.log(err)
       setErrorServer(err.message);
     })
 

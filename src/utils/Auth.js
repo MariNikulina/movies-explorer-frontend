@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://localhost:3003';
+/*export const BASE_URL = 'http://localhost:3003';*/
+export const BASE_URL = 'https://api.movies.nikulina.nomoredomainsrocks.ru';
 
 export const checkResponse = async (response) => {
 
@@ -15,6 +16,7 @@ export const checkResponse = async (response) => {
 export const register = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json"
     },

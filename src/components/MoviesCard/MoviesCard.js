@@ -1,12 +1,10 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import { useResize } from "../../utils/useResize";
 import "./MoviesCard.css";
 
 function MoviesCard ({ movie, locationSavedMovies, onClick, savedMovies, ...props }) {
 
   const resize = useResize();
-  const location = useLocation();
 
   const getMovieDuration = (duration) => {
     const hours = Math.floor(duration / 60);
@@ -49,7 +47,6 @@ if (locationSavedMovies) {
 }
 
   const isSavedMovies = Array.from(savedMovies).some(movie => movie.movieId === props.id);
-  /*const isSavedMovies = savedMovies.some(movie => movie.id === props.id);*/
   const buttonMovieClassSaved = isSavedMovies ? "movie__button_type_saved" : "";
   const buttonMovieClassLocationSaved = locationSavedMovies ? "movie__button_type_deleted-unvisible" : "";
   const buttonMovieClassScreenXSm = resize.isScreenXSm ? "" : "movie__button_type_deleted-visible";
