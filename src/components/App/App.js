@@ -129,6 +129,7 @@ function App() {
     setUserData({});
     setLoggedIn(false);
     setError("");
+    setMovieNotFound("");
   };
 
 function handleUpdateProfile (nameProfile, emailProfile) {
@@ -223,7 +224,8 @@ async function handleFindMovies (formData) {
 
   setMovie([]);
   setError("");
-  setRowCounter(0)
+  setRowCounter(0);
+  setMovieNotFound("");
 
   try {
     if (!formData) {
