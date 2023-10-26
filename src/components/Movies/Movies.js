@@ -8,7 +8,6 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 function Movies ({ loggedIn, openMenu, onSubmitHandler, onChangeCheckbox, onClick, onShowMore, checked, error, isLoading, movieNotFound, movies, moviesShow, savedMovies, isHiddenButtonShowMore  }) {
 
-
   return (
     <LayoutForMoviesPage loggedIn={loggedIn} openMenu={openMenu} >
       <Container>

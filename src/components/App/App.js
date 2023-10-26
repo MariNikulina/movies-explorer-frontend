@@ -183,12 +183,10 @@ const filterDurationMovies = ({movies}) => {
   });
   return filteredDurationMovies;
 };
-console.log(movie)
+
 //Вывод сообщения "Ничего не найдено" при пустом поле ввода
 React.useEffect(() => {
   if (movie.length === 0 && allMovies.length !== 0 && !isLoading) {
-    console.log(movie)
-    console.log(allMovies)
     setMovieNotFound("Ничего не найдено");
   }
 }, [movie, allMovies]);

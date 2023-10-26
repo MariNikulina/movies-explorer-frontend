@@ -11,18 +11,33 @@ function MoviesCardList ({ movies, onClick, savedMovies, onShowMore, isHiddenBut
 
   return (
     <section className={`movies ${locationSavedMovies ? "movies_padding_big" : ""} container__padding-small`}>
-      <ul className="movies__list">
-        {movies.map((movieElement) => (
-          <MoviesCard
-          movie={movieElement}
-          key={movieElement.movieId}
-          {...movieElement}
-          locationSavedMovies={locationSavedMovies}
-          onClick={onClick}
-          savedMovies={savedMovies}
-          />
-        ))}
-      </ul>
+      {locationSavedMovies ? (
+        <ul className="movies__list">
+          {movies.map((movieElement) => (
+            <MoviesCard
+            movie={movieElement}
+            key={movieElement.movieId}
+            {...movieElement}
+            locationSavedMovies={locationSavedMovies}
+            onClick={onClick}
+            savedMovies={savedMovies}
+            />
+          ))}
+        </ul>
+        ) : (
+          <ul className="movies__list">
+          {movies.map((movieElement) => (
+            <MoviesCard
+            movie={movieElement}
+            key={movieElement.id}
+            {...movieElement}
+            locationSavedMovies={locationSavedMovies}
+            onClick={onClick}
+            savedMovies={savedMovies}
+            />
+          ))}
+        </ul>
+      )}
       {isHiddenButton && <button type="button" className="movies__button" onClick={onShowMore}>Ещё</button>}
     </section>
   )
