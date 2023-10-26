@@ -76,9 +76,8 @@ export const moviesC = [
   }
 ];
 
-const NAME_REGEX = "^[A-Za-zА-Яа-яЁё\\s\\-]+$";
-const EMAIL_REGEX = "^\\S+@\\S+\\.\\S+$";
-
+export const NAME_REGEX = "^[A-Za-zА-Яа-яЁё\\s\\-]+$";
+export const EMAIL_REGEX = "^\\S+@\\S+\\.\\S+$";
 
 export const inputsRegister = [
   {
@@ -100,7 +99,7 @@ export const inputsRegister = [
   },{
     id: 3,
     label: "Пароль",
-    type: "text",
+    type: "password",
     placeholder: "Пароль",
     nameInput: "password"
   }
@@ -117,7 +116,7 @@ export const inputsLogin = [
   },{
     id: 2,
     label: "Пароль",
-    type: "text",
+    type: "password",
     placeholder: "Пароль",
     nameInput: "password"
   }

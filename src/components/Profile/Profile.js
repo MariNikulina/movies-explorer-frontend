@@ -4,6 +4,7 @@ import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { NAME_REGEX, EMAIL_REGEX } from "../../utils/constants";
 
 function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData }) {
 
@@ -17,8 +18,14 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
   const navigate = useNavigate();
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
-  let { name } = currentUser;
-  let nameTitle = name.slice(0, 1).toUpperCase() + name.slice(1);
+  const { nameProfile, emailProfile } = values;
+
+  const { name, email } = currentUser;
+  const nameTitle = name.slice(0, 1).toUpperCase() + name.slice(1);
+
+  React.useEffect(() => {
+    resetForm({ nameProfile: name, emailProfile: email });
+  }, [currentUser]);
 
   function changeButton () {
     setIsEdited(false);
@@ -30,21 +37,32 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
     navigate('/', {replace: true});
   };
 
+
+  function isDisabled() {
+    if (name !== nameProfile || email !== emailProfile) {
+      return false;
+    } else {
+      return !isValid;
+    };
+  };
+
   function handleSubmit(e) {
 
     e.preventDefault();
     setErrorServer("");
-    const { nameProfile, emailProfile } = values;
+    setSuccessUpdate(false)
+
     onUpdateProfile( nameProfile, emailProfile )
     .then((res) => {
       setSuccessUpdate(true);
       setErrorServer("Аккаунт успешно обновлен");
     })
-    .catch((err) => {
-      setErrorServer(err.message);
+    .then((res) => {
+      resetForm();
     })
-
-    resetForm();
+    .catch((err) => {
+      setErrorServer(err);
+    })
   };
 
   return (
@@ -64,6 +82,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 maxLength="30"
                 value={values["nameProfile"] || ""}
                 onChange={handleChange}
+                pattern={NAME_REGEX}
                 required
                 />
                 <span className="profile__error" id="inputName-error">{errors["nameProfile"]}</span>
@@ -76,6 +95,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 name="emailProfile"
                 value={values["emailProfile"] || ""}
                 onChange={handleChange}
+                pattern={EMAIL_REGEX}
                 required
                 />
                 <span className="profile__error" id="inputEmail-error">{errors["emailProfile"]}</span>
@@ -85,8 +105,8 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
             {isEdited && <input type="submit" className="profile__button-edit" value="Редактировать" onClick={changeButton}/>}
             {isSaved && <input
             type="submit"
-            disabled={!isValid}
-            className={`profile__button-save ${isValid ? "" : "profile__button-save_disabled"}`}
+            disabled={isDisabled()}
+            className={`profile__button-save ${!isDisabled() ? "" : "profile__button-save_disabled"}`}
             value="Сохранить"
             />}
           </form>

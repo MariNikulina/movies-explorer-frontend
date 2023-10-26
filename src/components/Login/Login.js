@@ -16,11 +16,12 @@ function Login ({ onLogin }) {
     e.preventDefault();
     const { email, password } = values;
     onLogin(email, password)
+    .then((res) => {
+      resetForm();
+    })
     .catch((err) => {
       setErrorServer(err.message);
     })
-
-    resetForm();
   };
 
    return (

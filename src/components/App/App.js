@@ -60,7 +60,7 @@ function App() {
 
   const tokenCheck = () => {
     auth.getContent().then((res) => {
-      if (res?.id) {
+      if (res?._id) {
         const userData = {
           name: res.name,
           email: res.email
@@ -113,6 +113,8 @@ function App() {
     })
   };
 
+
+
   function onLogin(email, password) {
     return  auth.authorize(email, password)
       .then((token) => {
@@ -130,16 +132,24 @@ function App() {
     setLoggedIn(false);
     setError("");
     setMovieNotFound("");
+    setAllMovies([]);
+    setMovie([]);
+    setFilteredNameMovies([]);
+    setIsHiddenButtonShowMore(false);
+    setAddCards(null);
+    setSavedMovies([]);
+    setSavedMoviesOnPage([]);
+    setFilteredNameSavedMovies([]);
+    setCheckedOnSavedPage(true);
+    setErrorOnSavedPage("");
   };
+
 
 function handleUpdateProfile (nameProfile, emailProfile) {
   return mainApi.updateUserInfo({ email: emailProfile, name: nameProfile })
     .then((user) => {
       setCurrentUser(user);
     })
-    .catch((err) => {
-      console.log(`${err}`);
-    });
 };
 
 React.useEffect(() => {
@@ -185,7 +195,6 @@ React.useEffect(() => {
 //Сохранение в локальное хранилище списка найденных фильмов
 React.useEffect(() => {
   if (allMovies.length !== 0) {
-    console.log("6")
     localStorage.setItem("movies", JSON.stringify(filteredNameMovies));
   }
 }, [allMovies, filteredNameMovies]);
@@ -196,7 +205,7 @@ React.useEffect(() => {
 
   if (checked) {
     setMovie(filterDurationMovies({ movies: filteredNameMovies }))
-  } else /*(!checked && allMovies.length !== 0)*/ {
+  } else {
       setMovie(filteredNameMovies);
     }
 
@@ -230,13 +239,13 @@ async function handleFindMovies (formData) {
   try {
     if (!formData) {
       setError("Нужно ввести ключевое слово");
-    } else {
-    setIsLoading(true);
+    } else if (allMovies.length === 0) {
 
-    const movies = await getMoviesFromBeatfilm()
-    setAllMovies(movies);
-    console.log(movies)
-    setFilteredNameMovies(filterNameMovies({ movies, keyWord: formData }));
+      const movies = await getMoviesFromBeatfilm()
+      setAllMovies(movies);
+      setFilteredNameMovies(filterNameMovies({ movies, keyWord: formData }));
+    } else {
+      setFilteredNameMovies(filterNameMovies({ movies: allMovies, keyWord: formData }));
     }
   } catch(err) {
     setError(err);
@@ -289,8 +298,7 @@ const location = useLocation();
 const locationSavedMovies = location.pathname === "/saved-movies";
 
 React.useEffect(() => {
-  if (loggedIn) {
-
+  if (locationSavedMovies) {
     mainApi.getSavedMovies()
       .then((res) => {
         setErrorOnSavedPage("");
@@ -302,7 +310,7 @@ React.useEffect(() => {
         console.log(`${err}`);
       });
   }
-}, [loggedIn, locationSavedMovies]);
+}, [locationSavedMovies]);
 
 //Вывод сообщения "Ничего не найдено" при пустом поле ввода
 React.useEffect(() => {
@@ -344,6 +352,7 @@ function handleDeleteMovieOnSavedPage (paramsFunctionOnClick) {
     .then((deletedMovie) => {
       setSavedMovies((state) => state.filter(i => i.movieId !== deletedMovie.movieId));
       setSavedMoviesOnPage((state) => state.filter(i => i.movieId !== deletedMovie.movieId));
+      setFilteredNameSavedMovies((state) => state.filter(i => i.movieId !== deletedMovie.movieId));
     })
     .catch((err) => {
       console.log(`${err}`);

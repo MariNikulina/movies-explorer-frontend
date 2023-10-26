@@ -16,11 +16,12 @@ function Register ({ onRegister, onLogin }) {
     setErrorServer("");
     const { name, email, password } = values;
     onRegister( name, email, password )
+    .then((res) => {
+      resetForm();
+    })
     .catch((err) => {
       setErrorServer(err.message);
     })
-
-    resetForm();
   };
 
   return (
