@@ -183,10 +183,12 @@ const filterDurationMovies = ({movies}) => {
   });
   return filteredDurationMovies;
 };
-
+console.log(movie)
 //Вывод сообщения "Ничего не найдено" при пустом поле ввода
 React.useEffect(() => {
   if (movie.length === 0 && allMovies.length !== 0 && !isLoading) {
+    console.log(movie)
+    console.log(allMovies)
     setMovieNotFound("Ничего не найдено");
   }
 }, [movie, allMovies]);
@@ -293,6 +295,7 @@ const [ savedMoviesOnPage, setSavedMoviesOnPage ] = React.useState([]);
 const [ filteredNameSavedMovies, setFilteredNameSavedMovies] = React.useState([]);
 const [ checkedOnSavedPage, setCheckedOnSavedPage ] = React.useState(true);
 const [ errorOnSavedPage, setErrorOnSavedPage ] = React.useState("");
+const [ movieNotFoundOnSavedPage, setMovieNotFoundOnSavedPage ] = React.useState("");
 
 const location = useLocation();
 const locationSavedMovies = location.pathname === "/saved-movies";
@@ -315,7 +318,7 @@ React.useEffect(() => {
 //Вывод сообщения "Ничего не найдено" при пустом поле ввода
 React.useEffect(() => {
   if (savedMoviesOnPage.length === 0 && savedMovies.length !== 0 && !isLoading) {
-    setMovieNotFound("Ничего не найдено");
+    setMovieNotFoundOnSavedPage("Ничего не найдено");
   }
 }, [savedMoviesOnPage, savedMovies]);
 
@@ -336,7 +339,7 @@ function handleFindSavedMovies (formData) {
 
 //фильтрация чекбоксом на странице сохраненных фильмов
 React.useEffect(() => {
-  setMovieNotFound("");
+  setMovieNotFoundOnSavedPage("");
 
   if (checkedOnSavedPage) {
     setSavedMoviesOnPage(filterDurationMovies({ movies: filteredNameSavedMovies }))
@@ -413,7 +416,7 @@ function onChangeCheckboxOnSavedPage () {
               checked={checkedOnSavedPage}
               error={errorOnSavedPage}
               isLoading={isLoading}
-              movieNotFound={movieNotFound}
+              movieNotFound={movieNotFoundOnSavedPage}
             />}
           />
           <Route path="/profile" element=
