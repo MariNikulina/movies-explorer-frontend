@@ -72,7 +72,10 @@ function App() {
         };
         setUserData(userData);
         setLoggedIn(true);
-        navigate('/movies', {replace: true});
+        if (locationMovies || locationProfile || locationSavedMovies) {
+          navigate('/movies', {replace: true});
+        }
+
       }
     })
     .catch((err) => {

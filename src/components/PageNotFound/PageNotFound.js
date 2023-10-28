@@ -4,7 +4,7 @@ import "./PageNotFound.css";
 
 function PageNotFound () {
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   function goToBack() {
     navigate(-1, {replace: false});
