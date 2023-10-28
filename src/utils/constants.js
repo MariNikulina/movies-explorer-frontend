@@ -1,3 +1,5 @@
+import isEmail from 'validator/es/lib/isEmail';
+
 export const diplomaDescriptions = [
   {
     id: 1,
@@ -77,7 +79,6 @@ export const moviesC = [
 ];
 
 export const NAME_REGEX = "^[A-Za-zА-Яа-яЁё\\s\\-]+$";
-export const EMAIL_REGEX = "^\\S+@\\S+\\.\\S+$";
 
 export const inputsRegister = [
   {
@@ -95,7 +96,7 @@ export const inputsRegister = [
     type: "email",
     placeholder: "E-mail",
     nameInput: "email",
-    pattern: EMAIL_REGEX
+    pattern: isEmail()
   },{
     id: 3,
     label: "Пароль",
@@ -112,7 +113,7 @@ export const inputsLogin = [
     type: "email",
     placeholder: "E-mail",
     nameInput: "email",
-    pattern: EMAIL_REGEX
+    pattern: isEmail()
   },{
     id: 2,
     label: "Пароль",

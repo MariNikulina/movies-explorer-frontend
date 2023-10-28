@@ -51,6 +51,10 @@ function App() {
   const countMoviesShow = initialCards + rowCounter*addCards;
   const moviesShow = movie.slice(0, countMoviesShow);
 
+  const location = useLocation();
+  const locationSavedMovies = location.pathname === "/saved-movies";
+  const locationMovies = location.pathname === "/movies";
+  const locationProfile = location.pathname === "/profile";
 
   const moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies")) || [];
 
@@ -60,6 +64,7 @@ function App() {
 
   const tokenCheck = () => {
     auth.getContent().then((res) => {
+      console.log("1")
       if (res?._id) {
         const userData = {
           name: res.name,
@@ -124,24 +129,29 @@ function App() {
   };
 
   function handleLogout() {
-    auth.logout();
-    localStorage.removeItem("searchQuery");
-    localStorage.removeItem("checkbox");
-    localStorage.removeItem("movies");
-    setUserData({});
-    setLoggedIn(false);
-    setError("");
-    setMovieNotFound("");
-    setAllMovies([]);
-    setMovie([]);
-    setFilteredNameMovies([]);
-    setIsHiddenButtonShowMore(false);
-    setAddCards(null);
-    setSavedMovies([]);
-    setSavedMoviesOnPage([]);
-    setFilteredNameSavedMovies([]);
-    setCheckedOnSavedPage(true);
-    setErrorOnSavedPage("");
+    auth.logout()
+    .then((res) => {
+      localStorage.removeItem("searchQuery");
+      localStorage.removeItem("checkbox");
+      localStorage.removeItem("movies");
+      setUserData({});
+      setLoggedIn(false);
+      setError("");
+      setMovieNotFound("");
+      setAllMovies([]);
+      setMovie([]);
+      setFilteredNameMovies([]);
+      setIsHiddenButtonShowMore(false);
+      setAddCards(null);
+      setSavedMovies([]);
+      setSavedMoviesOnPage([]);
+      setFilteredNameSavedMovies([]);
+      setCheckedOnSavedPage(true);
+      setErrorOnSavedPage("");
+    })
+    .catch((err) => {
+      console.log(`${err}`);
+    });
   };
 
 
@@ -295,9 +305,6 @@ const [ checkedOnSavedPage, setCheckedOnSavedPage ] = React.useState(true);
 const [ errorOnSavedPage, setErrorOnSavedPage ] = React.useState("");
 const [ movieNotFoundOnSavedPage, setMovieNotFoundOnSavedPage ] = React.useState("");
 
-const location = useLocation();
-const locationSavedMovies = location.pathname === "/saved-movies";
-
 React.useEffect(() => {
   if (locationSavedMovies) {
     mainApi.getSavedMovies()
@@ -364,6 +371,10 @@ function handleDeleteMovieOnSavedPage (paramsFunctionOnClick) {
 function onChangeCheckboxOnSavedPage () {
   setCheckedOnSavedPage(!checkedOnSavedPage);
 };
+
+function onLoggedIn() {
+  setLoggedIn(true)
+}
 
    return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { NAME_REGEX, EMAIL_REGEX } from "../../utils/constants";
+import isEmail from 'validator/es/lib/isEmail';
 
 function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData }) {
 
@@ -37,10 +37,9 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
     navigate('/', {replace: true});
   };
 
-
   function isDisabled() {
-    if (name !== nameProfile || email !== emailProfile) {
-      return false;
+    if (name === nameProfile && email === emailProfile) {
+      return true;
     } else {
       return !isValid;
     };
@@ -82,7 +81,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 maxLength="30"
                 value={values["nameProfile"] || ""}
                 onChange={handleChange}
-                pattern={NAME_REGEX}
+                pattern={isEmail()}
                 required
                 />
                 <span className="profile__error" id="inputName-error">{errors["nameProfile"]}</span>
@@ -95,7 +94,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 name="emailProfile"
                 value={values["emailProfile"] || ""}
                 onChange={handleChange}
-                pattern={EMAIL_REGEX}
+                pattern={isEmail()}
                 required
                 />
                 <span className="profile__error" id="inputEmail-error">{errors["emailProfile"]}</span>
