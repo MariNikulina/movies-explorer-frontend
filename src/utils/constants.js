@@ -96,7 +96,7 @@ export const inputsRegister = [
     type: "email",
     placeholder: "E-mail",
     nameInput: "email",
-    pattern: isEmail()
+    pattern: isEmail
   },{
     id: 3,
     label: "Пароль",
@@ -113,7 +113,7 @@ export const inputsLogin = [
     type: "email",
     placeholder: "E-mail",
     nameInput: "email",
-    pattern: isEmail()
+    pattern: isEmail
   },{
     id: 2,
     label: "Пароль",

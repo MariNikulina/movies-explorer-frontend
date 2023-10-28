@@ -81,7 +81,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 maxLength="30"
                 value={values["nameProfile"] || ""}
                 onChange={handleChange}
-                pattern={isEmail()}
+                pattern={isEmail}
                 required
                 />
                 <span className="profile__error" id="inputName-error">{errors["nameProfile"]}</span>
@@ -94,7 +94,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 name="emailProfile"
                 value={values["emailProfile"] || ""}
                 onChange={handleChange}
-                pattern={isEmail()}
+                pattern={isEmail}
                 required
                 />
                 <span className="profile__error" id="inputEmail-error">{errors["emailProfile"]}</span>
