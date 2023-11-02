@@ -64,7 +64,6 @@ function App() {
 
   const tokenCheck = () => {
     auth.getContent().then((res) => {
-      console.log("1")
       if (res?._id) {
         const userData = {
           name: res.name,
@@ -72,10 +71,9 @@ function App() {
         };
         setUserData(userData);
         setLoggedIn(true);
-        if (locationMovies || locationProfile || locationSavedMovies) {
-          navigate('/movies', {replace: true});
+       if (locationMovies || locationProfile || locationSavedMovies) {
+        navigate('/movies', {replace: true});
         }
-
       }
     })
     .catch((err) => {
@@ -121,8 +119,6 @@ function App() {
     })
   };
 
-
-
   function onLogin(email, password) {
     return  auth.authorize(email, password)
       .then((token) => {
@@ -151,6 +147,7 @@ function App() {
       setFilteredNameSavedMovies([]);
       setCheckedOnSavedPage(true);
       setErrorOnSavedPage("");
+      setCurrentUser({});
     })
     .catch((err) => {
       console.log(`${err}`);
@@ -384,15 +381,15 @@ function onLoggedIn() {
       <div className="page">
         <Routes>
           <Route path="/" element=
-          {<LayoutForProjectPage
-            loggedIn={loggedIn}
-            headerColorProject="header_color_dark"
-            burgerColorProject="header__burger_color_white"
-            profileButtonColorProject="profile-link_color_green"
-            openMenu={openMenu}
-          >
-            <Main />
-          </LayoutForProjectPage>}
+            {<LayoutForProjectPage
+              loggedIn={loggedIn}
+              headerColorProject="header_color_dark"
+              burgerColorProject="header__burger_color_white"
+              profileButtonColorProject="profile-link_color_green"
+              openMenu={openMenu}
+            >
+              <Main />
+            </LayoutForProjectPage>}
           />
           <Route path="/signup" element={<Register onRegister={onRegister} onLogin={onLogin} />} />
           <Route path="/signin" element={<Login onLogin={onLogin} />} />

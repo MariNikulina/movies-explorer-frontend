@@ -9,12 +9,13 @@ function Login ({ onLogin }) {
 
   const [ errorServer, setErrorServer ] = React.useState("");
 
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, handleChangeEmail, errors, isValidInputs, resetForm } = useFormWithValidation();
 
   function handleSubmit(e) {
 
     e.preventDefault();
     const { email, password } = values;
+
     onLogin(email, password)
     .then((res) => {
       resetForm();
@@ -29,14 +30,20 @@ function Login ({ onLogin }) {
       <form action="#" className="form-login" name="login" onSubmit={handleSubmit} noValidate>
         <fieldset className="form-login__input-container">
           {inputsLogin.map((input) => (
-            <Input key={input.id} {...input} errors={errors} handleChange={handleChange} values={values}  />
+            <Input
+            key={input.id}
+            {...input}
+            errors={errors}
+            handleChange={input.type === "email" ? handleChangeEmail : handleChange }
+            values={values}
+            />
           ))}
         </fieldset>
         <span className="form-login__error-request">{errorServer}</span>
         <input
-        disabled={!isValid}
+        disabled={!isValidInputs}
         type="submit"
-        className={`form-login__button ${isValid ? "" : "form-login__button_disabled"}`}
+        className={`form-login__button ${isValidInputs ? "" : "form-login__button_disabled"}`}
         value="Войти"
         />
       </form>

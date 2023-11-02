@@ -1,5 +1,3 @@
-import isEmail from 'validator/es/lib/isEmail';
-
 export const diplomaDescriptions = [
   {
     id: 1,
@@ -95,8 +93,7 @@ export const inputsRegister = [
     label: "E-mail",
     type: "email",
     placeholder: "E-mail",
-    nameInput: "email",
-    pattern: isEmail
+    nameInput: "email"
   },{
     id: 3,
     label: "Пароль",
@@ -112,8 +109,7 @@ export const inputsLogin = [
     label: "E-mail",
     type: "email",
     placeholder: "E-mail",
-    nameInput: "email",
-    pattern: isEmail
+    nameInput: "email"
   },{
     id: 2,
     label: "Пароль",

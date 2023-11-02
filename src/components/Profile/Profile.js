@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
 import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import isEmail from 'validator/es/lib/isEmail';
+import { NAME_REGEX } from "../../utils/constants";
 
 function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData }) {
 
@@ -16,7 +16,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
   const [ successUpdate, setSuccessUpdate ] = React.useState(false);
 
   const navigate = useNavigate();
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, handleChangeEmail, errors, isValidInputs, resetForm } = useFormWithValidation();
 
   const { nameProfile, emailProfile } = values;
 
@@ -41,7 +41,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
     if (name === nameProfile && email === emailProfile) {
       return true;
     } else {
-      return !isValid;
+      return !isValidInputs;
     };
   };
 
@@ -80,8 +80,8 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 minLength="2"
                 maxLength="30"
                 value={values["nameProfile"] || ""}
+                pattern={NAME_REGEX}
                 onChange={handleChange}
-                pattern={isEmail}
                 required
                 />
                 <span className="profile__error" id="inputName-error">{errors["nameProfile"]}</span>
@@ -93,8 +93,7 @@ function Profile ({ loggedIn, openMenu, handleLogout, onUpdateProfile, userData 
                 placeholder="E-mail"
                 name="emailProfile"
                 value={values["emailProfile"] || ""}
-                onChange={handleChange}
-                pattern={isEmail}
+                onChange={handleChangeEmail}
                 required
                 />
                 <span className="profile__error" id="inputEmail-error">{errors["emailProfile"]}</span>

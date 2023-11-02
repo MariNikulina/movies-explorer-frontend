@@ -9,7 +9,7 @@ function Register ({ onRegister, onLogin }) {
 
   const [ errorServer, setErrorServer ] = React.useState("");
 
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, handleChangeEmail, errors, isValidInputs, resetForm } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -29,14 +29,20 @@ function Register ({ onRegister, onLogin }) {
       <form action="#" className="form-register" name="register" onSubmit={handleSubmit} noValidate>
         <fieldset className="form-register__input-container">
           {inputsRegister.map((input) => (
-            <Input key={input.id} {...input} errors={errors} handleChange={handleChange} values={values} />
+            <Input
+            key={input.id}
+            {...input}
+            errors={errors}
+            handleChange={input.type === "email" ? handleChangeEmail : handleChange }
+            values={values}
+            />
           ))}
         </fieldset>
         <span className="form-register__error-request">{errorServer}</span>
         <input
-        disabled={!isValid}
+        disabled={!isValidInputs}
         type="submit"
-        className={`form-register__button ${isValid ? "" : "form-register__button_disabled"}`}
+        className={`form-register__button ${isValidInputs ? "" : "form-register__button_disabled"}`}
         value="Зарегистрироваться"
         />
       </form>
