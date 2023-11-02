@@ -2,6 +2,7 @@
   width: 100%;
   border: 0;
   margin-bottom: 16px;
+  position: relative;
 }
 
 .form-login__input-container {
@@ -30,8 +31,35 @@
   opacity: 0.8;
 }
 
+.form-login__button_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+.form-login__button_disabled:hover {
+  opacity: 0.8;
+}
+
 @media screen and (max-width: 424px) {
   .form-login__button {
     margin-top: 309px;
+  }
+}
+
+.form-login__error-request {
+  position: absolute;
+  width: 410px;
+  bottom: 65px;
+  left: 0;
+  color: #FF004C;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+}
+
+@media screen and (max-width: 424px) {
+  .form-login__error-request {
+    width: 260px;
   }
 }

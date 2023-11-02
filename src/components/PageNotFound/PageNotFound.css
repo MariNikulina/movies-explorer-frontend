@@ -57,6 +57,10 @@
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+
 }
 
 .not-found__link-back:hover {

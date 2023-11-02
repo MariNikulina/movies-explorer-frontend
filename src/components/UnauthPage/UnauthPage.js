@@ -1,9 +1,10 @@
 import React from "react";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logoPath from "../../images/header-logo.svg";
 import "./UnauthPage.css";
 
 function UnauthPage ({ title, children, text, link, linkText}) {
+
   return (
     <main className="unauth-page">
       <div className="unauth-page__container">

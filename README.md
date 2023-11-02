@@ -17,3 +17,6 @@
 * В качестве инфраструктуры проекта используется пакет CRA
 * Адаптивная верстка
 * Попап окно
+
+Ссылка на пул реквест - https://github.com/MariNikulina/movies-explorer-frontend/pull/2
+Ссылка на задеплоенный на сервере проект -  https://movies.nikulina.nomoredomainsrocks.ru/

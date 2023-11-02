@@ -2,18 +2,49 @@ import React from "react";
 import UnauthPage from "../UnauthPage/UnauthPage";
 import Input from "../Input/Input";
 import { inputsRegister } from "../../utils/constants";
+import { useFormWithValidation } from "../../utils/useFormWithValidation";
 import "./Register.css";
 
-function Register () {
+function Register ({ onRegister, onLogin }) {
+
+  const [ errorServer, setErrorServer ] = React.useState("");
+
+  const { values, handleChange, handleChangeEmail, errors, isValidInputs, resetForm } = useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setErrorServer("");
+    const { name, email, password } = values;
+    onRegister( name, email, password )
+    .then((res) => {
+      resetForm();
+    })
+    .catch((err) => {
+      setErrorServer(err.message);
+    })
+  };
+
   return (
     <UnauthPage title="Добро пожаловать!" text="Уже зарегистрированы?" link="/signin" linkText="Войти">
-      <form action="#" className="form-register" name="register">
-        <fieldset class="form-register__input-container">
+      <form action="#" className="form-register" name="register" onSubmit={handleSubmit} noValidate>
+        <fieldset className="form-register__input-container">
           {inputsRegister.map((input) => (
-            <Input key={input.id} {...input} />
+            <Input
+            key={input.id}
+            {...input}
+            errors={errors}
+            handleChange={input.type === "email" ? handleChangeEmail : handleChange }
+            values={values}
+            />
           ))}
         </fieldset>
-        <input type="submit" className="form-register__button" value="Зарегистрироваться" />
+        <span className="form-register__error-request">{errorServer}</span>
+        <input
+        disabled={!isValidInputs}
+        type="submit"
+        className={`form-register__button ${isValidInputs ? "" : "form-register__button_disabled"}`}
+        value="Зарегистрироваться"
+        />
       </form>
     </UnauthPage>
   )
